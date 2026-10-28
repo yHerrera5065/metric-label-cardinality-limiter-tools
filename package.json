@@ -1,0 +1,17 @@
+{
+  "name": "metric-label-cardinality-limiter-tools",
+  "version": "0.1.0",
+  "description": "Limits recorded label-value groups per collector by evicting the least recently used group when full",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": "./src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {}
+}
