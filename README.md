@@ -40,3 +40,10 @@ A metrics collector that records every distinct label combination can blow up me
 - Label sets are compared by key, not by insertion order: `{a:'1',b:'2'}` and `{b:'2',a:'1'}` are the same group.
 - `buildKey` joins label names and values with `=` and `|` without escaping. This is safe for Prometheus-style label names (restricted to `[a-zA-Z_][a-zA-Z0-9_]*`) but values containing `|` or `=` will produce keys that are still deterministic — just not human-parseable. If you need to distinguish `{a:'x|y'}` from `{a:'x',y:''}` at the key level, escape values before passing them in.
 - `LabelEntry.labels` is a shallow copy. Nested objects are shared by reference; this library expects flat string-valued label maps.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
